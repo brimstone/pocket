@@ -1,0 +1,12 @@
+loglevel: 2
+frequency: 15m
+github:
+  token:
+pocket:
+  key:
+  token:
+mastodon:
+  username: brimstone@the.narro.ws
+  password:
+  client-id:
+  client-secret:

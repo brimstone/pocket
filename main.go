@@ -5,6 +5,7 @@ import (
 	"flag"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -200,12 +201,18 @@ func main() {
 	flag.String("mastodon.username", "", "mastodon username")
 	flag.String("mastodon.password", "", "mastodon password")
 	flag.String("frequency", "", "Check frequency")
-
-	// setup configs
-	viper.SetConfigName("config")
-	viper.AddConfigPath("/")
-	viper.AddConfigPath("$HOME/.pocket")
-	viper.AddConfigPath(".")
+	configpath := flag.String("config", "", "Config file path")
+	flag.Parse()
+	if *configpath != "" {
+		viper.SetConfigName(filepath.Base(*configpath))
+		viper.AddConfigPath(filepath.Dir(*configpath))
+	} else {
+		// setup configs
+		viper.SetConfigName("config")
+		viper.AddConfigPath("/")
+		viper.AddConfigPath("$HOME/.pocket")
+		viper.AddConfigPath(".")
+	}
 	err := viper.ReadInConfig()
 	if err != nil {
 		logger.Println(err)

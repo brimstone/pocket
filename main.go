@@ -84,7 +84,7 @@ func checkStars(clientMasto *mastodon.Client, toots []*mastodon.Status) error {
 		logger.Printf("Checking %s\n", repourl)
 
 		statustext := "I just starred " + repourl + "\n\n"
-		if *repo.Description != "" {
+		if repo.Description != nil {
 			statustext += *repo.Description + "\n\n"
 		}
 		if repo.License != nil {
